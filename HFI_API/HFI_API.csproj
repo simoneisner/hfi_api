@@ -8,6 +8,9 @@
     <Folder Include="wwwroot\" />
     <Folder Include="Repositories\" />
     <Folder Include="Services\" />
+    <Folder Include="Repositories\Implementations\" />
+    <Folder Include="Repositories\Interfaces\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
