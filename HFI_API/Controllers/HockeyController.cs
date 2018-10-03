@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HFI_API.Services;
+using HFI_API.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,14 +21,17 @@ namespace HFI_API.Controllers
             _hockeyApiService = hockeyApiService;
         }
 
-
+        [Route("")]
         public ActionResult<IEnumerable<string>> Index()
         {
             return new string[] { "value1", "value2" };
         }
 
 
-
+        [Route("players")]
+        public ActionResult<List<Player>> GetPlayers(){
+            return _hockeyApiService.GetPlayers();
+        }
 
         /*  // GET: api/values
            [HttpGet]
