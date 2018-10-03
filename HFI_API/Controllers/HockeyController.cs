@@ -30,7 +30,8 @@ namespace HFI_API.Controllers
 
         [Route("players")]
         public ActionResult<List<Player>> GetPlayers(){
-            return _hockeyApiService.GetPlayers();
+            List<Player> players =  _hockeyApiService.GetPlayers();
+            return Ok(players);
         }
 
         /*  // GET: api/values

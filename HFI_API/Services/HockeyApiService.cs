@@ -6,6 +6,7 @@ using HFI_API.Models;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
 using Flurl;
+using Newtonsoft.Json;
 
 namespace HFI_API.Services
 {
@@ -18,7 +19,7 @@ namespace HFI_API.Services
         public HockeyApiService(IConfiguration configuration)
         {
             _configuration = configuration;
-            _externalApiRoot = _configuration.GetSection("ExternalHockeyApiEndpoint").ToString();
+            _externalApiRoot = _configuration.GetSection("ExternalHockeyApiEndpoint").Value;
         }
 
 
@@ -47,18 +48,24 @@ namespace HFI_API.Services
         public List<Player> GetPlayers()
         {
             List<Player> players = new List<Player>();
+            Team team = GetTeam();
+            return team.players;
+        }
 
-            //string url = _externalApiRoot.AppendPathSegment("teams")
-            //                         .AppendPathSegment("4415ce44-0f24-11e2-8525-18a905767e44")
-            //                         .AppendPathSegment("profile.json")
-            //                             .SetQueryParam("api_key", "
+        public Team GetTeam()
+        {
+            Team team = new Team();
+            string url = _externalApiRoot.ToString().AppendPathSegment("teams")
+                        .AppendPathSegment("4415ce44-0f24-11e2-8525-18a905767e44")
+                        .AppendPathSegment("profile.json")
+                        .SetQueryParam("api_key", "dswtyyp5acknms3meetzj7zp");
 
-            string url = "https://api.sportradar.us/nhl/trial/v6/en/teams/4416091c-0f24-11e2-8525-18a905767e44/profile.json?api_key=dswtyyp5acknms3meetzj7zp";
             var client = new RestClient(url);
-            var response = client.Execute<List<Player>>(new RestRequest());
+            var response = client.Execute<Team>(new RestRequest());
 
-            return players;
-        
+            team = JsonConvert.DeserializeObject<Team>(response.Content);
+
+            return team;
         }
 
     }
