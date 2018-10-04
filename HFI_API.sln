@@ -1,7 +1,10 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HFI_API", "HFI_API\HFI_API.csproj", "{C15FB3E1-763D-4C89-AC2A-15C46A299E5A}"
+VisualStudioVersion = 15.0.27703.2000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HFI_API", "HFI_API\HFI_API.csproj", "{C15FB3E1-763D-4C89-AC2A-15C46A299E5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HFI_API_Test", "HFI_API_Test\HFI_API_Test.csproj", "{3927A101-5CF4-4BFE-BFC7-A7B37CB1D4BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,5 +16,15 @@ Global
 		{C15FB3E1-763D-4C89-AC2A-15C46A299E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C15FB3E1-763D-4C89-AC2A-15C46A299E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C15FB3E1-763D-4C89-AC2A-15C46A299E5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3927A101-5CF4-4BFE-BFC7-A7B37CB1D4BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3927A101-5CF4-4BFE-BFC7-A7B37CB1D4BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3927A101-5CF4-4BFE-BFC7-A7B37CB1D4BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3927A101-5CF4-4BFE-BFC7-A7B37CB1D4BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1D756D45-78F0-4A75-9F05-1027439D33C7}
 	EndGlobalSection
 EndGlobal

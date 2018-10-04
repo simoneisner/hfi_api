@@ -15,11 +15,13 @@ namespace HFI_API.Services
 
         private readonly IConfiguration _configuration;
         private readonly string _externalApiRoot;
+        private readonly string _externalApiKey;
 
         public HockeyApiService(IConfiguration configuration)
         {
             _configuration = configuration;
             _externalApiRoot = _configuration.GetSection("ExternalHockeyApiEndpoint").Value;
+            _externalApiKey = _configuration.GetSection("ExternalHockeyApiKey").Value;
         }
 
 
@@ -37,10 +39,10 @@ namespace HFI_API.Services
             List<Player> players = new List<Player>();
 
             var url = _externalApiRoot.AppendPathSegment("teams")
-                                      .AppendPathSegment("4415ce44-0f24-11e2-8525-18a905767e44")
+                                      //.AppendPathSegment("4415ce44-0f24-11e2-8525-18a905767e44")
+                                      .AppendPathSegment(team_id)
                                       .AppendPathSegment("profile.json")
-                                      .SetQueryParam("api_key", new { api_key = "dswtyyp5acknms3meetzj7zp" });
-                                      //.SetQueryParam(new{ api_key = "dswtyyp5acknms3meetzj7zp"});
+                                      .SetQueryParam("api_key", new { api_key = _externalApiKey });                                      
 
             return players;
         }
