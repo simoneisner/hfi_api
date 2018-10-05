@@ -4,7 +4,7 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HFI_API", "HFI_API\HFI_API.csproj", "{C15FB3E1-763D-4C89-AC2A-15C46A299E5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HFI_API_Test", "HFI_API_Test\HFI_API_Test.csproj", "{3927A101-5CF4-4BFE-BFC7-A7B37CB1D4BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HFI_API.Test", "HFI_API_Test\HFI_API.Test.csproj", "{3927A101-5CF4-4BFE-BFC7-A7B37CB1D4BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
