@@ -14,9 +14,9 @@ namespace HFI_API.Controllers
     public class HockeyController : Controller
     {
     
-        private IHockeyApiService _hockeyApiService;
+        private INhlApiService _hockeyApiService;
       
-        public HockeyController(IHockeyApiService hockeyApiService)
+        public HockeyController(INhlApiService hockeyApiService)
         {
             _hockeyApiService = hockeyApiService;
         }
@@ -29,8 +29,8 @@ namespace HFI_API.Controllers
 
 
         [Route("players")]
-        public ActionResult<List<Player>> GetPlayers(){
-            List<Player> players =  _hockeyApiService.GetPlayers();
+        public ActionResult<List<Player>> GetPlayers(int rosterId){
+            List<NhlPerson> players =  _hockeyApiService.GetPlayersByRosterId(rosterId);
             return Ok(players);
         }
 

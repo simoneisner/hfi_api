@@ -29,7 +29,6 @@ namespace HFI_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddScoped<IApiRepository, ApiRepository>();
             services.AddTransient<IHockeyApiService, HockeyApiService>();
         }
 

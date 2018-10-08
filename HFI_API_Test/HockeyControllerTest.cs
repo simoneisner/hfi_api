@@ -7,9 +7,9 @@ namespace HFI_API_Test
     public class HockeyControllerTest
     {
         [TestMethod]
-        public void 
+        public void something()
         {
-
+            string x = "";
         }
     }
 }

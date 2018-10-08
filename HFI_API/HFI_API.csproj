@@ -10,6 +10,7 @@
     <Folder Include="Services\" />
     <Folder Include="Repositories\Implementations\" />
     <Folder Include="Repositories\Interfaces\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,4 +23,9 @@
     <PackageReference Include="Flurl" Version="2.8.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Repositories\Interfaces\IApiRepository.cs" />
+    <Compile Remove="Repositories\Implementations\NhlApiRepository.cs" />
+    <Compile Remove="Repositories\Implementations\ApiRepository.cs" />
+  </ItemGroup>
 </Project>
