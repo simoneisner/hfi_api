@@ -79,8 +79,27 @@ namespace HFI_API.Services
             return JsonConvert.DeserializeObject<List<NhlPerson>>(response.Content);
         }
 
+        public List<Player> GetPlayers()
+        {
+            List<Player> players = new List<Player>();
+            List<NhlTeam> teams = new List<NhlTeam>();
+
+            teams = GetTeams();
+
+            foreach(NhlTeam team in teams)
+            {
+                int teamId = team.id;
+                //players.Add(GetPlayersByTeamId(team.id).ForEach());
+                GetPlayersByTeamId(teamId).ForEach(p => players.Add(p));
+            }
+
+            return players;
+        }
+
+
         public List<Player> GetPlayersByTeamId(int teamId)
         {
+
             List<NhlPlayer> nhlPlayers = new List<NhlPlayer>();
             List<Player> hfiPlayers = new List<Player>();
             NhlRoster roster = GetTeamRosterByTeamId(teamId);

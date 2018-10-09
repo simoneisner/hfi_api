@@ -35,7 +35,7 @@ namespace HFI_API.Controllers
             teamId = teamId == 0 ? 7 : teamId;
             List<Player> players = new List<Player>();
             NhlRoster roster = new NhlRoster();
-            players   =  _hockeyApiService.GetPlayersByTeamId(teamId);
+            players =  _hockeyApiService.GetPlayersByTeamId(teamId);
 
             return Ok(players);
         }

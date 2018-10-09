@@ -30,5 +30,7 @@ namespace HFI_API.Services
         List<NhlPerson> GetPlayersByRosterId(int rosterId);
 
         List<Player> GetPlayersByTeamId(int teamId);
+
+        List<Player> GetPlayers();
     }
 }
