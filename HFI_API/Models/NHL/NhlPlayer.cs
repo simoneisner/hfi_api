@@ -1,7 +1,7 @@
 ﻿using System;
-namespace HFI_API.Models
+namespace HFI_API.Models.NHL
 {
-    public class NhlPlayerRoster
+    public class NhlPlayer
     {
         public NhlPerson person { get; set; }
         public string jerseyNumber { get; set; }

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace HFI_API.Models
+namespace HFI_API.Models.NHL
 {
     public class NhlPerson
     {

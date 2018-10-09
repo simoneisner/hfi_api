@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using HFI_API.Models;
+using HFI_API.Models.NHL;
 
 namespace HFI_API.Services
 {

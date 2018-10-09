@@ -5,7 +5,7 @@ using RestSharp;
 using Flurl;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-
+using HFI_API.Models.NHL;
 
 namespace HFI_API.Services
 {
@@ -76,6 +76,16 @@ namespace HFI_API.Services
             var response = client.Execute<List<NhlPerson>>(new RestRequest());
 
             return JsonConvert.DeserializeObject<List<NhlPerson>>(response.Content);
+        }
+
+        public List<NhlPlayer> GetPlayersByTeamId(int teamId)
+        {
+            List<NhlPlayer> players = new List<NhlPlayer>();
+
+            NhlRoster roster = GetTeamRosterByTeamId(teamId);
+            players = roster.roster;
+
+            return players;
         }
     }
 }
