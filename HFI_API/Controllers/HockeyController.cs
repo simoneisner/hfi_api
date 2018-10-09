@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using HFI_API.Services;
 using HFI_API.Models;
 using HFI_API.Models.NHL;
+using HFI_API.Models.HFI;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,12 +31,12 @@ namespace HFI_API.Controllers
 
 
         [Route("players")]
-        public ActionResult<List<NhlPlayer>> GetPlayers(int teamId){
+        public ActionResult<List<Player>> GetPlayers(int teamId){
             teamId = teamId == 0 ? 7 : teamId;
-            List<NhlPlayer> players = new List<NhlPlayer>();
+            List<Player> players = new List<Player>();
             NhlRoster roster = new NhlRoster();
-            roster   =  _hockeyApiService.GetTeamRosterByTeamId(teamId);
-            players = roster.roster;
+            players   =  _hockeyApiService.GetPlayersByTeamId(teamId);
+            //players = roster.roster;
             return Ok(players);
         }
 

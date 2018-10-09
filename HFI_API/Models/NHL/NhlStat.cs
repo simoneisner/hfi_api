@@ -7,10 +7,8 @@ namespace HFI_API.Models.NHL
 {
     public class NhlStat
     {
-        public class Stat
-        {
-            public NhlType type { get; set; }
-            public List<NhlSplit> splits { get; set; }
-        }
+        public NhlType type { get; set; }
+        public List<NhlSplit> splits { get; set; }
+     
     }
 }

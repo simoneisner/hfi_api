@@ -19,8 +19,8 @@ namespace HFI_API.Models.NHL
         public string powerPlayTimeOnIce { get; set; }
         public string evenTimeOnIce { get; set; }
         public string penaltyMinutes { get; set; }
-        public int faceOffPct { get; set; }
-        public int shotPct { get; set; }
+        public double faceOffPct { get; set; }
+        public double shotPct { get; set; }
         public int gameWinningGoals { get; set; }
         public int overTimeGoals { get; set; }
         public int shortHandedGoals { get; set; }

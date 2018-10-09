@@ -6,6 +6,7 @@ using Flurl;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using HFI_API.Models.NHL;
+using HFI_API.Models.HFI;
 
 namespace HFI_API.Services
 {
@@ -78,14 +79,46 @@ namespace HFI_API.Services
             return JsonConvert.DeserializeObject<List<NhlPerson>>(response.Content);
         }
 
-        public List<NhlPlayer> GetPlayersByTeamId(int teamId)
+        public List<Player> GetPlayersByTeamId(int teamId)
         {
-            List<NhlPlayer> players = new List<NhlPlayer>();
-
+            List<NhlPlayer> nhlPlayers = new List<NhlPlayer>();
+            List<Player> hfiPlayers = new List<Player>();
             NhlRoster roster = GetTeamRosterByTeamId(teamId);
-            players = roster.roster;
 
-            return players;
+            nhlPlayers = roster.roster;
+            
+            //TODO: map objects without foreach
+            //TODO: check null or count
+            foreach(NhlPlayer nhlPlayer in nhlPlayers)
+            {
+                Player player = new Player();
+                player.nhlPlayer = nhlPlayer;
+                player.nhlPlayerStatsContainer = new NhlPlayerStatsContainer();
+                NhlPlayerStatsContainer container =  GetPlayerStats(nhlPlayer.person.id);
+                player.nhlPlayerStatsContainer = container;
+                hfiPlayers.Add(player);
+                //break;
+            }
+
+
+
+            return hfiPlayers;
+        }
+
+        public NhlPlayerStatsContainer GetPlayerStats(int playerId)
+        {
+
+            NhlPlayerStatsContainer container = new NhlPlayerStatsContainer();
+            string url = _externalApiRoot.AppendPathSegment("people")
+                                        .AppendPathSegment(playerId)
+                                        .AppendPathSegment("stats")
+                                        .SetQueryParam("stats", "statsSingleSeason")
+                                        .SetQueryParam("season",_configuration.GetSection("CurrentSeason").Value);
+
+            var client = new RestClient(url);
+            var response = client.Execute<NhlPlayerStatsContainer>(new RestRequest());
+            container = JsonConvert.DeserializeObject<NhlPlayerStatsContainer>(response.Content);
+            return container;
         }
     }
 }

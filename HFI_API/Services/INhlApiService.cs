@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using HFI_API.Models;
+using HFI_API.Models.HFI;
 using HFI_API.Models.NHL;
 
 namespace HFI_API.Services
@@ -27,5 +28,7 @@ namespace HFI_API.Services
         /// <returns>The players.</returns>
         /// <param name="rosterId">Roster identifier.</param>
         List<NhlPerson> GetPlayersByRosterId(int rosterId);
+
+        List<Player> GetPlayersByTeamId(int teamId);
     }
 }
