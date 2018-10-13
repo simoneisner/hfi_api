@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using HFI_API.Models;
 using HFI_API.Models.HFI;
 using HFI_API.Models.NHL;
@@ -31,6 +32,6 @@ namespace HFI_API.Services
 
         List<Player> GetPlayersByTeamId(int teamId);
 
-        List<Player> GetPlayers();
+        Task<List<Player>> GetPlayers();
     }
 }

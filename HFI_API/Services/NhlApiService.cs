@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using HFI_API.Models.NHL;
 using HFI_API.Models.HFI;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace HFI_API.Services
 {
@@ -46,7 +48,10 @@ namespace HFI_API.Services
 
             var client = new RestClient(url);
             var response = client.Execute<List<NhlTeam>>(new RestRequest());
-            return JsonConvert.DeserializeObject<List<NhlTeam>>(response.Content);
+            NhlTeamList teamList = JsonConvert.DeserializeObject<NhlTeamList>(response.Content);
+            teams = teamList.teams;
+            return teams;
+            
         }
 
 
@@ -79,20 +84,19 @@ namespace HFI_API.Services
             return JsonConvert.DeserializeObject<List<NhlPerson>>(response.Content);
         }
 
-        public List<Player> GetPlayers()
+        public async Task<List<Player>> GetPlayers()
         {
             List<Player> players = new List<Player>();
             List<NhlTeam> teams = new List<NhlTeam>();
 
             teams = GetTeams();
 
-            foreach(NhlTeam team in teams)
+            Parallel.ForEach(teams.ToList(), (team) =>
             {
                 int teamId = team.id;
-                //players.Add(GetPlayersByTeamId(team.id).ForEach());
                 GetPlayersByTeamId(teamId).ForEach(p => players.Add(p));
-            }
-
+            });
+   
             return players;
         }
 

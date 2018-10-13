@@ -29,8 +29,19 @@ namespace HFI_API.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        //TODO: Make these calls Async, as well as the RestSharp calls.
+
         [Route("players")]
+        public ActionResult<List<Player>> GetPlayers() {
+
+            List<Player> players = new List<Player>();
+            players = _hockeyApiService.GetPlayers().Result;
+            return Ok(players);
+        }
+
+
+
+        //TODO: Make these calls Async, as well as the RestSharp calls.
+        [Route("players/{teamId:int}")]
         public ActionResult<List<Player>> GetPlayers(int teamId){
             teamId = teamId == 0 ? 7 : teamId;
             List<Player> players = new List<Player>();
