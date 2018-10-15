@@ -28,6 +28,7 @@ namespace HFI_API.Services
         /// </summary>
         /// <returns>The players.</returns>
         /// <param name="rosterId">Roster identifier.</param>
+        //Task<List<NhlPerson>> GetPlayersByRosterId(int rosterId);
         List<NhlPerson> GetPlayersByRosterId(int rosterId);
 
         List<Player> GetPlayersByTeamId(int teamId);

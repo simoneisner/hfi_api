@@ -91,11 +91,14 @@ namespace HFI_API.Services
 
             teams = GetTeams();
 
-            Parallel.ForEach(teams.ToList(), (team) =>
+            
+            List<Task> tasks = new List<Task>();
+            foreach(NhlTeam team in teams)
             {
-                int teamId = team.id;
-                GetPlayersByTeamId(teamId).ForEach(p => players.Add(p));
-            });
+                tasks.Add(Task.Run(() => GetPlayersByTeamId(team.id).ForEach(p => players.Add(p))));
+            }
+
+            await Task.WhenAll(tasks);
    
             return players;
         }
