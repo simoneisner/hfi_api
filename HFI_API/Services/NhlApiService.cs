@@ -41,7 +41,7 @@ namespace HFI_API.Services
         public List<NhlTeam> GetTeams()
         {
             List<NhlTeam> teams = new List<NhlTeam>();
-            string url = _externalApiRoot.AppendPathSegment("teams");
+            string url = _externalApiRoot.AppendPathSegment("api/v1/teams");
 
             //TODO: USE FACTORY HERE?
             //.SetQueryParam("api_key", "dswtyyp5acknms3meetzj7zp");
@@ -56,11 +56,16 @@ namespace HFI_API.Services
 
 
 
-
+        /// <summary>
+        /// Get a roster object containing a list of players 
+        /// </summary>
+        /// <param name="teamId"></param>
+        /// <returns></returns>
         public NhlRoster GetTeamRosterByTeamId(int teamId)
         {
             NhlRoster roster = new NhlRoster();
-            string url = _externalApiRoot.AppendPathSegment("teams")
+            string url = _externalApiRoot.AppendPathSegment("api").AppendPathSegment("v1")
+                                         .AppendPathSegment("teams")
                                          .AppendPathSegment(teamId)
                                          .AppendPathSegment("roster");
 
@@ -74,7 +79,7 @@ namespace HFI_API.Services
         public List<NhlPerson> GetPlayersByRosterId(int rosterId)
         {
             List<NhlPerson> players = new List<NhlPerson>();
-            string url = _externalApiKey.AppendPathSegment("people")
+            string url = _externalApiKey.AppendPathSegment("api").AppendPathSegment("v1").AppendPathSegment("people")
                                         .AppendPathSegment(rosterId)
                                         .SetQueryParam("hydrate", "stats(splits = statsSingleSeason)");
 
@@ -93,12 +98,24 @@ namespace HFI_API.Services
 
             
             List<Task> tasks = new List<Task>();
-            foreach(NhlTeam team in teams)
-            {
-                tasks.Add(Task.Run(() => GetPlayersByTeamId(team.id).ForEach(p => players.Add(p))));
-            }
+            //foreach(NhlTeam team in teams)
+            //{
+            //    tasks.Add(Task.Run(() => GetPlayersByTeamId(team.id).ForEach(p => players.Add(p))));
+            //}
 
-            await Task.WhenAll(tasks);
+            //Parallel.ForEach(teams.ToList(), (team) =>
+            //{
+            //    int teamId = team.id;
+            //    //players.Add(GetPlayersByTeamId(team.id).ForEach());
+            //    GetPlayersByTeamId(teamId).ForEach(p => players.Add(p));
+            //}
+
+
+            await Task.Run(() => Parallel.ForEach(teams, (team) =>
+            {
+                int teamId = team.id;
+                GetPlayersByTeamId(teamId).ForEach(p => players.Add(p));
+            }));
    
             return players;
         }
@@ -106,36 +123,56 @@ namespace HFI_API.Services
 
         public List<Player> GetPlayersByTeamId(int teamId)
         {
-
+            //List<Task> tasks = new List<Task>();
             List<NhlPlayer> nhlPlayers = new List<NhlPlayer>();
             List<Player> hfiPlayers = new List<Player>();
             NhlRoster roster = GetTeamRosterByTeamId(teamId);
 
             nhlPlayers = roster.roster;
-            
+
             //TODO: map objects without foreach
             //TODO: check null or count
-            foreach(NhlPlayer nhlPlayer in nhlPlayers)
-            {
-                Player player = new Player();
-                player.nhlPlayer = nhlPlayer;
-                player.nhlPlayerStatsContainer = new NhlPlayerStatsContainer();
-                NhlPlayerStatsContainer container =  GetPlayerStats(nhlPlayer.person.id);
-                player.nhlPlayerStatsContainer = container;
-                hfiPlayers.Add(player);
-                //break;
-            }
+            //foreach(NhlPlayer nhlPlayer in nhlPlayers)
 
+            Parallel.ForEach(nhlPlayers, nhlPlayer =>
+            {
+                Player player = AssemblePlayer(nhlPlayer);
+                hfiPlayers.Add(player);
+            });
 
 
             return hfiPlayers;
+        }
+
+        public Player AssemblePlayer(NhlPlayer nhlPlayer)
+        {
+            Player player = new Player();
+            player.nhlPlayer = nhlPlayer;
+            player.nhlPlayerStatsContainer = new NhlPlayerStatsContainer();
+            NhlPlayerStatsContainer container = GetPlayerStats(nhlPlayer.person.id);
+            player.nhlPlayerStatsContainer = container;
+            if(player.nhlPlayer.person.firstName == null)
+            {
+                NhlPerson person = new NhlPerson();
+                string url = _externalApiRoot.AppendPathSegment("api").AppendPathSegment("v1")
+                             .AppendPathSegment("people")
+                            .AppendPathSegment(player.nhlPlayer.person.id);
+
+                var client = new RestClient(url);
+                var response = client.Execute<NhlPersonContainer>(new RestRequest());
+                person = JsonConvert.DeserializeObject<NhlPersonContainer>(response.Content).people[0];
+                player.nhlPlayer.person = person;
+            }
+            //hfiPlayers.Add(player);
+            return player;
         }
 
         public NhlPlayerStatsContainer GetPlayerStats(int playerId)
         {
 
             NhlPlayerStatsContainer container = new NhlPlayerStatsContainer();
-            string url = _externalApiRoot.AppendPathSegment("people")
+            string url = _externalApiRoot.AppendPathSegment("api").AppendPathSegment("v1")
+                                         .AppendPathSegment("people")
                                         .AppendPathSegment(playerId)
                                         .AppendPathSegment("stats")
                                         .SetQueryParam("stats", "statsSingleSeason")
