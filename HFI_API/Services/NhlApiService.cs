@@ -44,7 +44,7 @@ namespace HFI_API.Services
             string url = _externalApiRoot.AppendPathSegment("api/v1/teams");
 
             //TODO: USE FACTORY HERE?
-            //.SetQueryParam("api_key", "dswtyyp5acknms3meetzj7zp");
+            
 
             var client = new RestClient(url);
             var response = client.Execute<List<NhlTeam>>(new RestRequest());
@@ -98,17 +98,7 @@ namespace HFI_API.Services
 
             
             List<Task> tasks = new List<Task>();
-            //foreach(NhlTeam team in teams)
-            //{
-            //    tasks.Add(Task.Run(() => GetPlayersByTeamId(team.id).ForEach(p => players.Add(p))));
-            //}
-
-            //Parallel.ForEach(teams.ToList(), (team) =>
-            //{
-            //    int teamId = team.id;
-            //    //players.Add(GetPlayersByTeamId(team.id).ForEach());
-            //    GetPlayersByTeamId(teamId).ForEach(p => players.Add(p));
-            //}
+          
 
 
             await Task.Run(() => Parallel.ForEach(teams, (team) =>
