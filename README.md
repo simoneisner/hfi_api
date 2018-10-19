@@ -1,16 +1,11 @@
 ﻿# Project Title
 
-HFI Hockey Pool App
+HFI Hockey Pool Api
 
 ## Getting Started
 
-This is the front end side of the HFI Fantasy Hockey Pool App.  The app is meant to connect to the HFI Hockey Pool API, but for now is showing static data.
-
-To run:  
-* Download source code
-* Run "npm install"
-* Run "npm start"
+This is the back end of the HFI Fantasy Hockey Pool App.  The API connects to nhl.com, gets data and converts it to objects used by the front end.  The API is currently still in under construction.  Most of the data retrieval is done.  Next step is securing the API with OAuth 2.
 
 ### Prerequisites
 
-* Install [npm](https://www.npmjs.com/get-npm)  and the [Angular CLI (Version 6.1.2) ](https://www.npmjs.com/package/@angular/cli/v/6.1.2)
+* .NET Core 2.1
