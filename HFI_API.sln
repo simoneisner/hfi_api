@@ -2,9 +2,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HFI_API", "HFI_API\HFI_API.csproj", "{C15FB3E1-763D-4C89-AC2A-15C46A299E5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HFI_API", "HFI_API\HFI_API.csproj", "{C15FB3E1-763D-4C89-AC2A-15C46A299E5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HFI_API.Test", "HFI_API_Test\HFI_API.Test.csproj", "{3927A101-5CF4-4BFE-BFC7-A7B37CB1D4BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HFI_API.Test", "HFI_API_Test\HFI_API.Test.csproj", "{3927A101-5CF4-4BFE-BFC7-A7B37CB1D4BA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EE4F5396-6A01-48D6-A124-2C4110069736}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
